@@ -15,6 +15,16 @@ template <typename T> bool IsType(any a)
     }
 }
 
+template <typename T> vector<any> ConvertToAnyVector(const vector<T> &src)
+{
+    vector<any> dst;
+    for (auto e : src)
+    {
+        dst.push_back(e);
+    }
+    return dst;
+}
+
 void EnumerateAnyArray(const vector<any> &arr)
 {
     for (auto a : arr)
@@ -34,6 +44,20 @@ void EnumerateAnyArray(const vector<any> &arr)
         else if (IsType<shared_ptr<int>>(a))
         {
             cout << "shared_ptr<int> type" << endl;
+        }
+        else if (IsType<vector<int>>(a))
+        {
+            cout << "vector<int> type" << endl;
+            cout << "--- recursion start ---" << endl;
+            EnumerateAnyArray(ConvertToAnyVector(any_cast<vector<int>>(a)));
+            cout << "--- recursion end ---" << endl;
+        }
+        else if (IsType<vector<string>>(a))
+        {
+            cout << "vector<string> type" << endl;
+            cout << "--- recursion start ---" << endl;
+            EnumerateAnyArray(ConvertToAnyVector(any_cast<vector<string>>(a)));
+            cout << "--- recursion end ---" << endl;
         }
         else
         {
@@ -55,6 +79,11 @@ int main(int argc, char const *argv[])
     v.push_back("aaa");
     v.push_back(string("aaa"));
 
+    v.push_back(vector<int>{1, 2, 3});
+    v.push_back(vector<string>{"a", "b", "c"});
     EnumerateAnyArray(v);
+
+    // vector<string> vs{"a", "b", "c"};
+    // ConvertToAnyVector(vs);
     return 0;
 }
