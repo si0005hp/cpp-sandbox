@@ -62,11 +62,15 @@ class Cat : public Animal
 
 void run()
 {
-    auto a1 = make_shared<Dog>();
-    auto a2 = make_shared<Cat>();
+    auto pa1 = new Dog();
+    auto pa2 = new Cat();
+    pa1->Cry();
+    pa2->Cry();
 
-    a1->Cry();
-    a2->Cry();
+    auto sa1 = make_shared<Dog>();
+    auto sa2 = make_shared<Cat>();
+    sa1->Cry();
+    sa2->Cry();
 }
 
 } // namespace Polymorphism
