@@ -2,6 +2,9 @@
 
 using namespace std;
 
+namespace smart_pointer
+{
+
 namespace NestedPtr
 {
 
@@ -72,8 +75,9 @@ void run()
 
 } // namespace NestedPtr
 
+} // namespace smart_pointer
 int main(int argc, char const *argv[])
 {
-    NestedPtr::run();
+    smart_pointer::NestedPtr::run();
     return 0;
 }

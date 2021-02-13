@@ -2,6 +2,9 @@
 
 using namespace std;
 
+namespace pointer
+{
+
 namespace NullCheck
 {
 template <typename T> void CheckNullPtr(T *p, const string &name)
@@ -75,9 +78,10 @@ void run()
 
 } // namespace Polymorphism
 
+} // namespace pointer
 int main(int argc, char const *argv[])
 {
     // NullCheck::run();
-    Polymorphism::run();
+    pointer::Polymorphism::run();
     return 0;
 }

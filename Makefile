@@ -1,5 +1,5 @@
 gcc_options = -std=c++2a -Wall --pedantic-error
-CPP_FILES := main instanceof any pointer smart_pointer exception
+CPP_FILES := main instanceof any pointer smart_pointer exception object
 TARGETS := $(CPP_FILES)
 
 all.h.gch: all.h
