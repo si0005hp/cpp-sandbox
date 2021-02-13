@@ -1,5 +1,5 @@
 gcc_options = -std=c++2a -Wall --pedantic-error
-CPP_FILES := main instanceof
+CPP_FILES := main instanceof any
 TARGETS := $(CPP_FILES)
 
 all.h.gch: all.h

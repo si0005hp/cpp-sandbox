@@ -45,35 +45,36 @@ class Number : public Expr
 //     return is_base_of<Base, T>::value;
 // }
 
-template <typename Base, typename T> inline bool instanceof (const T &)
+template <typename Base, typename T> inline bool Instanceof(const T &)
 {
     return is_base_of<Base, T>::value;
 }
 
-template <typename T> void doCheck(const T &t)
+template <typename T> void DoCheck(T &t)
 {
-    if (instanceof <Number>(t))
+    if (Instanceof<string>(t))
+    {
+        cout << "is instance of string class" << endl;
+    }
+    else if (Instanceof<Number>(t))
     {
         cout << "is instance of Number class" << endl;
     }
-    if (instanceof <Expr>(t))
+    else if (Instanceof<Expr>(t))
     {
         cout << "is instance of Expr class" << endl;
-    }
-    if (instanceof <string>(t))
-    {
-        cout << "is instance of string class" << endl;
     }
 }
 
 int main(int argc, char const *argv[])
 {
-
     shared_ptr<Number> np = make_shared<Number>(1);
-    const string &s = "foo";
+    const string &sref = "foo";
+    const string s = "foo";
 
-    doCheck(*np);
-    doCheck(s);
+    DoCheck(*np);
+    DoCheck(sref);
+    DoCheck(s);
 
     return 0;
 }
