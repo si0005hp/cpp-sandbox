@@ -81,7 +81,7 @@ void run()
 } // namespace pointer
 int main(int argc, char const *argv[])
 {
-    // NullCheck::run();
-    pointer::Polymorphism::run();
+    pointer::NullCheck::run();
+    // pointer::Polymorphism::run();
     return 0;
 }

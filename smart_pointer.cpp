@@ -5,6 +5,33 @@ using namespace std;
 namespace smart_pointer
 {
 
+namespace Nullptr
+{
+
+void CheckNull(shared_ptr<int> p)
+{
+    if (p)
+    {
+        cout << "NOT null (value: " << *p << ")" << endl;
+    }
+    else
+    {
+        cout << "null" << endl;
+    }
+}
+
+void run()
+{
+    shared_ptr<int> i1 = make_shared<int>(1);
+    shared_ptr<int> i2 = nullptr;
+    shared_ptr<int> i3;
+
+    CheckNull(i1);
+    CheckNull(i2);
+    CheckNull(i3);
+}
+} // namespace Nullptr
+
 namespace NestedPtr
 {
 
@@ -78,6 +105,7 @@ void run()
 } // namespace smart_pointer
 int main(int argc, char const *argv[])
 {
-    smart_pointer::NestedPtr::run();
+    // smart_pointer::NestedPtr::run();
+    smart_pointer::Nullptr::run();
     return 0;
 }

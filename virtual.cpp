@@ -17,6 +17,13 @@ class BasePrinter
         PrintLine();
     }
 
+    virtual void FinalPrint(const string &msg) final
+    {
+        PrintLine();
+        cout << msg << endl;
+        PrintLine();
+    }
+
   protected:
     virtual void PrintLine()
     {
@@ -52,6 +59,9 @@ void run()
 
     p1->Print("msg by Printer1");
     p2->Print("msg by Printer2");
+
+    p1->FinalPrint("FinalPrint by Printer1");
+    p2->FinalPrint("FinalPrint by Printer2");
 }
 
 } // namespace Virtual
