@@ -2,17 +2,26 @@
 
 using namespace std;
 
+namespace AnyVector
+{
+
 template <typename T> bool IsType(any a)
 {
-    try
-    {
-        any_cast<T>(a);
-        return true;
-    }
-    catch (bad_any_cast &e)
-    {
-        return false;
-    }
+    // try
+    // {
+    //     any_cast<T>(a);
+    //     return true;
+    // }
+    // catch (bad_any_cast &e)
+    // {
+    //     return false;
+    // }
+    return IsType2<T>(a);
+}
+
+template <typename T> bool IsType2(any a)
+{
+    return a.type().name() == typeid(T).name();
 }
 
 template <typename T> vector<any> ConvertToAnyVector(const vector<T> &src)
@@ -71,7 +80,7 @@ string btos(bool b)
     return b ? "true" : "false";
 }
 
-int main(int argc, char const *argv[])
+void run()
 {
     vector<any> v;
     v.push_back(make_shared<int>(1));
@@ -82,8 +91,52 @@ int main(int argc, char const *argv[])
     v.push_back(vector<int>{1, 2, 3});
     v.push_back(vector<string>{"a", "b", "c"});
     EnumerateAnyArray(v);
+}
 
-    // vector<string> vs{"a", "b", "c"};
-    // ConvertToAnyVector(vs);
+} // namespace AnyVector
+
+void IsEqual(any x, any y)
+{
+    if (x.type().name() == y.type().name())
+    {
+        cout << "EQ" << endl;
+    }
+    else
+    {
+        cout << "NOT EQ" << endl;
+    }
+}
+
+template <typename T> void Inspect(const any &a)
+{
+    p("--------------------------------------------");
+    cout << "[a.type().name()]: " << a.type().name() << endl;
+    cout << "[typeid(T).name()]: " << typeid(T).name() << endl;
+
+    if (a.type().name() == typeid(T).name())
+        p("EQ") else p("NOT EQ");
+}
+
+int main(int argc, char const *argv[])
+{
+    any x = 1;
+    Inspect<int>(x);
+
+    any y = "aaa";
+    Inspect<char *>(y); // NOT EQ
+
+    any z = string("aaa");
+    Inspect<string>(z); // EQ
+
+    any a = make_any<string>("aaa");
+    Inspect<string>(a); // EQ
+
+    auto ip = make_shared<int>(1);
+    any ipa = make_any<shared_ptr<int>>(ip);
+    ip = any_cast<shared_ptr<int>>(ipa);
+    p(*ip);
+
+    // AnyVector::run();
+
     return 0;
 }
