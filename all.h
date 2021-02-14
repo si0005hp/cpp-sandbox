@@ -36,6 +36,7 @@
 #include <list>
 #include <map>
 #include <numeric>
+#include <optional>
 #include <ostream>
 #include <queue>
 #include <random>
