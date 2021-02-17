@@ -2,6 +2,9 @@
 
 using namespace std;
 
+namespace Instanceof
+{
+
 class Expr
 {
   public:
@@ -66,15 +69,34 @@ template <typename T> void DoCheck(T &t)
     }
 }
 
+void run()
+{
+    // shared_ptr<Number> np = make_shared<Number>(1);
+    // const string &sref = "foo";
+    // const string s = "foo";
+
+    // DoCheck(*np);
+    // DoCheck(sref);
+    // DoCheck(s);
+
+    shared_ptr<Expr> expr = make_shared<Number>(999);
+
+    // if (typeid(np) == typeid(shared_ptr<Number>))
+    // {
+    //     cout << "true" << endl;
+    // }
+    if (typeid(*expr) == typeid(Number))
+    {
+        cout << "true" << endl;
+        auto n = static_pointer_cast<Number>(expr);
+        cout << n->val << endl;
+    }
+}
+
+} // namespace Instanceof
+
 int main(int argc, char const *argv[])
 {
-    shared_ptr<Number> np = make_shared<Number>(1);
-    const string &sref = "foo";
-    const string s = "foo";
-
-    DoCheck(*np);
-    DoCheck(sref);
-    DoCheck(s);
-
+    Instanceof::run();
     return 0;
 }

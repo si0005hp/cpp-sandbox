@@ -1,6 +1,6 @@
 gcc_options = -std=c++2a -Wall --pedantic-error
 CPP_FILES := main instanceof any pointer smart_pointer exception object optional friend virtual string \
-							operator_overload
+							operator_overload template map
 TARGETS := $(CPP_FILES)
 
 all.h.gch: all.h
