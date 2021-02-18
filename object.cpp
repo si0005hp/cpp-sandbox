@@ -127,13 +127,7 @@ class SomeObject
     SomeValue mValue;
 };
 
-} // namespace object3
-
-using namespace object;
-using namespace object2;
-using namespace object3;
-
-int main(int argc, char const *argv[])
+void run()
 {
     SomeObject o;
     const SomeValue &v = o.GetCValue();
@@ -148,6 +142,61 @@ int main(int argc, char const *argv[])
     o.UpdateStr("vvv");
 
     v.Show();
+}
+
+} // namespace object3
+
+namespace nest
+{
+
+class Env
+{
+  public:
+    Env() : mParent(nullptr)
+    {
+    }
+    Env(const shared_ptr<Env> &parent) : mParent(parent)
+    {
+    }
+    void Add(int k, string v)
+    {
+        mValues[k] = v;
+    }
+    string Get(int k)
+    {
+        if (mValues.contains(k))
+            return mValues[k];
+
+        if (mParent)
+            return "@" + mParent->Get(k);
+
+        throw runtime_error("no item: " + to_string(k));
+    }
+
+    unordered_map<int, string> mValues;
+    shared_ptr<Env> mParent;
+};
+
+} // namespace nest
+
+using namespace object;
+using namespace object2;
+using namespace object3;
+using namespace nest;
+
+int main(int argc, char const *argv[])
+{
+    auto root = make_shared<Env>();
+    root->Add(1, "one");
+
+    auto nest1 = make_shared<Env>(root);
+    cout << nest1->Get(1) << endl;
+
+    auto nest1_2 = make_shared<Env>(root);
+    cout << nest1_2->Get(1) << endl;
+
+    auto nest2 = make_shared<Env>(nest1);
+    cout << nest2->Get(1) << endl;
 
     return 0;
 }

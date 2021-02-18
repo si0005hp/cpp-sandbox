@@ -102,10 +102,80 @@ void run()
 
 } // namespace NestedPtr
 
+namespace UniquePtr
+{
+
+void run()
+{
+    unique_ptr<int> i = make_unique<int>(1);
+    unique_ptr<int> i2 = std::move(i);
+
+    cout << *i << endl;
+}
+
+} // namespace UniquePtr
+
+namespace Const
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Mod(const string &name)
+    {
+        mName = name;
+    }
+    void Print() const
+    {
+        cout << mName << endl;
+    }
+
+    string mName;
+};
+
+class ItemHolder
+{
+  public:
+    ItemHolder(const shared_ptr<Item> &mItem) : mItem(mItem)
+    {
+    }
+    const shared_ptr<Item> &GetItem() const
+    {
+        return mItem;
+    }
+    const Item &GetCItem() const
+    {
+        return mItem;
+    }
+
+    shared_ptr<Item> mItem;
+};
+
+void run()
+{
+    auto item = make_shared<Item>("aaa");
+    ItemHolder h(item);
+
+    // auto i = h.GetItem();
+    // i->Mod("a");
+    // i->Print();
+
+    auto &ci = h.GetCItem();
+    // ci.Mod("a");
+    ci.Print();
+}
+
+} // namespace Const
+
 } // namespace smart_pointer
 int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
-    smart_pointer::Nullptr::run();
+    // smart_pointer::Nullptr::run();
+    // smart_pointer::UniquePtr::run();
+    smart_pointer::Const::run();
     return 0;
 }
