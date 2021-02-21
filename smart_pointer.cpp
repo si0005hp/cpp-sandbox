@@ -139,6 +139,9 @@ class Item
 class ItemHolder
 {
   public:
+    ItemHolder()
+    {
+    }
     ItemHolder(const shared_ptr<Item> &mItem) : mItem(mItem)
     {
     }
@@ -148,7 +151,7 @@ class ItemHolder
     }
     const Item &GetCItem() const
     {
-        return mItem;
+        return *mItem;
     }
 
     shared_ptr<Item> mItem;
@@ -168,6 +171,18 @@ void run()
     ci.Print();
 }
 
+void run2()
+{
+    // ItemHolder h;
+    // auto &item = h.GetCItem();
+
+    // string s = item.mName;
+    // // cout << item.mName << endl;
+
+    shared_ptr<int> i = nullptr;
+    *i;
+}
+
 } // namespace Const
 
 } // namespace smart_pointer
@@ -176,6 +191,6 @@ int main(int argc, char const *argv[])
     // smart_pointer::NestedPtr::run();
     // smart_pointer::Nullptr::run();
     // smart_pointer::UniquePtr::run();
-    smart_pointer::Const::run();
+    smart_pointer::Const::run2();
     return 0;
 }
