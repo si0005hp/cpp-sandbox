@@ -10,6 +10,7 @@ using namespace std;
 class Value
 {
   public:
+    template <typename T> T As();
 };
 
 class String : public Value
@@ -18,6 +19,12 @@ class String : public Value
     String(const string &value) : mValue(value)
     {
     }
+
+    template <typename T> T As()
+    {
+        return mValue;
+    }
+
     string mValue;
 };
 
@@ -27,6 +34,12 @@ class Number : public Value
     Number(const double &value) : mValue(value)
     {
     }
+
+    template <typename T> T As()
+    {
+        return mValue;
+    }
+
     double mValue;
 };
 
@@ -38,9 +51,10 @@ template <typename T> T DynamicCast(Value &value)
 
 void run()
 {
-    String s("a");
-    Value &v = s;
-    String &s2 = dynamic_cast<String &>(v);
+    // String s("a");
+    Value *v = new String("a");
+    v->As<string>();
+    // String &s2 = dynamic_cast<String &>(v);
 
     // Value v2 = Number(12);
 
