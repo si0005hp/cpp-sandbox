@@ -78,10 +78,90 @@ void run()
 
 } // namespace Polymorphism
 
+namespace Address
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Print() const
+    {
+        cout << "Item: " << mName << endl;
+    }
+
+    string mName;
+};
+
+void UpdateR(Item &item)
+{
+    item.mName = "Updated";
+}
+
+void UpdateP(Item *item)
+{
+    // item->mName = "Updated";
+    Item i = *item;
+    i.mName = "Updated";
+}
+
+void ShowAddressR(Item &item)
+{
+    cout << &item << endl;
+}
+
+void run()
+{
+    Item *item = new Item("one");
+    // item->Print();
+    // UpdateR(*item);
+    // item->Print();
+    cout << item << endl;
+    ShowAddressR(*item);
+}
+
+class AddressHolder
+{
+  public:
+    void Add(const shared_ptr<Item> &addr, const string &value)
+    {
+        mAddrMap[addr] = value;
+    }
+    void PrintAll()
+    {
+        for (auto &[k, v] : mAddrMap)
+            cout << k << ":" << v << endl;
+    }
+
+    unordered_map<shared_ptr<Item>, string> mAddrMap;
+};
+
+void AddToHolder(AddressHolder &h, const shared_ptr<Item> &item)
+{
+    // h.Add(make_shared<Item>(item), item.mName);
+    h.Add(item, item->mName);
+}
+
+void run2()
+{
+    AddressHolder h;
+
+    auto sp1 = make_shared<Item>("a");
+    cout << sp1 << endl;
+
+    AddToHolder(h, sp1);
+    h.PrintAll();
+}
+
+} // namespace Address
+
 } // namespace pointer
 int main(int argc, char const *argv[])
 {
-    pointer::NullCheck::run();
+    // pointer::NullCheck::run();
     // pointer::Polymorphism::run();
+    pointer::Address::run2();
     return 0;
 }
