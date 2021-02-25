@@ -185,12 +185,63 @@ void run2()
 
 } // namespace Const
 
+namespace Ref
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Print() const
+    {
+        cout << "Item: " << mName << endl;
+    }
+
+    string mName;
+};
+
+class Database
+{
+  public:
+    void AddItem(const shared_ptr<Item> &item)
+    {
+        mItems.push_back(item);
+    }
+    void Print() const
+    {
+        for (auto item : mItems)
+            item->Print();
+    }
+
+    vector<shared_ptr<Item>> mItems;
+};
+
+void AddItems(Database &db)
+{
+    auto a = make_shared<Item>("a");
+    db.AddItem(a);
+    auto b = make_shared<Item>("b");
+    db.AddItem(b);
+}
+
+void run()
+{
+    Database db;
+    AddItems(db);
+
+    db.Print();
+}
+} // namespace Ref
+
 } // namespace smart_pointer
 int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
     // smart_pointer::Nullptr::run();
     // smart_pointer::UniquePtr::run();
-    smart_pointer::Const::run2();
+    // smart_pointer::Const::run2();
+    smart_pointer::Ref::run();
     return 0;
 }
