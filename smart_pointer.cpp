@@ -188,7 +188,7 @@ void run2()
 namespace Ref
 {
 
-class Item
+class Item : public enable_shared_from_this<Item>
 {
   public:
     Item(const string &name) : mName(name)
@@ -197,6 +197,20 @@ class Item
     void Print() const
     {
         cout << "Item: " << mName << endl;
+    }
+    string Str() const
+    {
+        return "Item: " + mName;
+    }
+
+    shared_ptr<const Item> Ptr() const
+    {
+        return shared_from_this();
+    }
+
+    shared_ptr<Item> Ptr()
+    {
+        return shared_from_this();
     }
 
     string mName;
@@ -209,21 +223,37 @@ class Database
     {
         mItems.push_back(item);
     }
+    void AddItem(Item &item)
+    {
+        mItems.push_back(item.Ptr());
+    }
     void Print() const
     {
         for (auto item : mItems)
-            item->Print();
+            // item->Print();
+            cout << "Print: " << item << " " << item->Str() << endl;
     }
 
     vector<shared_ptr<Item>> mItems;
 };
 
+void PrintDatabase(Database db)
+{
+    db.Print();
+}
+
 void AddItems(Database &db)
 {
     auto a = make_shared<Item>("a");
-    db.AddItem(a);
     auto b = make_shared<Item>("b");
-    db.AddItem(b);
+
+    // db.AddItem(a);
+    // db.AddItem(b);
+    db.AddItem(*a);
+    db.AddItem(*b);
+
+    cout << "AddItems a: " << a << endl;
+    cout << "AddItems b: " << b << endl;
 }
 
 void run()
@@ -231,9 +261,89 @@ void run()
     Database db;
     AddItems(db);
 
-    db.Print();
+    // db.Print();
+    PrintDatabase(db);
 }
+
 } // namespace Ref
+
+namespace Ref2
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Print() const
+    {
+        cout << "Item: " << mName << endl;
+    }
+    string Str() const
+    {
+        return "Item: " + mName;
+    }
+
+    string mName;
+};
+
+class Database
+{
+  public:
+    void AddItem(const Item &item)
+    {
+        cout << "addressof " << item.mName << ": " << addressof(item) << endl;
+        mItemRefs.push_back(item);
+
+        mMap[addressof(item)] = ++mCounter;
+    }
+    void Print() const
+    {
+        for (auto &itemRef : mItemRefs)
+            itemRef.get().Print();
+    }
+    int Get(const shared_ptr<Item> &ptr) const
+    {
+        const Item *p = ptr.get();
+        auto v = mMap.at(p);
+        return v;
+    }
+
+    int mCounter = 0;
+    vector<reference_wrapper<const Item>> mItemRefs;
+    unordered_map<const Item *, int> mMap;
+};
+
+void AddItems(Database &db)
+{
+    auto itemSp1 = make_shared<Item>("aa");
+    auto itemSp2 = make_shared<Item>("bb");
+
+    cout << "itemSp1: " << itemSp1 << endl;
+    cout << "itemSp2: " << itemSp2 << endl;
+
+    db.AddItem(*itemSp1);
+    db.AddItem(*itemSp2);
+}
+
+void run()
+{
+    Database db;
+
+    auto itemSp1 = make_shared<Item>("aa");
+    auto itemSp2 = make_shared<Item>("bb");
+    db.AddItem(*itemSp1);
+    db.AddItem(*itemSp2);
+    // AddItems(db);
+
+    db.Print();
+
+    cout << db.Get(itemSp1) << endl;
+    cout << db.Get(itemSp2) << endl;
+}
+
+} // namespace Ref2
 
 } // namespace smart_pointer
 int main(int argc, char const *argv[])
@@ -242,6 +352,7 @@ int main(int argc, char const *argv[])
     // smart_pointer::Nullptr::run();
     // smart_pointer::UniquePtr::run();
     // smart_pointer::Const::run2();
-    smart_pointer::Ref::run();
+    // smart_pointer::Ref::run();
+    smart_pointer::Ref2::run();
     return 0;
 }

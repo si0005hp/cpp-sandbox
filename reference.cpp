@@ -58,6 +58,10 @@ class Obj
     {
         cout << mData.title << ":" << mData.value << endl;
     }
+    Data &GetData()
+    {
+        return mData;
+    }
 
   private:
     Data mData;
@@ -74,7 +78,10 @@ void run()
     Data d{"a", 10};
     Obj o(std::move(d));
     o.PrintData();
-    d.Print();
+
+    auto &data = o.GetData();
+    data.title = "aaa";
+    o.PrintData();
 
     // shared_ptr<Data> dp = make_shared<Data>(d);
     // auto a = *dp;
