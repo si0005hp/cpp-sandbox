@@ -345,7 +345,63 @@ void run()
 
 } // namespace Ref2
 
+namespace Inferitance
+{
+
+class Book
+{
+  public:
+    Book(const string &title) : mTitle(title)
+    {
+    }
+    void Print()
+    {
+        cout << Prefix() << ":" << mTitle << endl;
+    }
+    virtual string Prefix() = 0;
+
+    string mTitle;
+};
+
+class Novel : public Book
+{
+  public:
+    Novel(const string &title) : Book(title)
+    {
+    }
+    string Prefix() override
+    {
+        return "Novel ";
+    }
+};
+
+class BookDatabase
+{
+  public:
+    void Add(const shared_ptr<Book> &book)
+    {
+        mBooks.push_back(book);
+    }
+    vector<shared_ptr<Book>> mBooks;
+};
+
+void AddBook(BookDatabase &db, const shared_ptr<Novel> &n1)
+{
+    db.Add(n1);
+}
+
+void run()
+{
+    BookDatabase db;
+
+    auto n1 = make_shared<Novel>("novel1");
+    AddBook(db, n1);
+}
+
+} // namespace Inferitance
+
 } // namespace smart_pointer
+
 int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
@@ -353,6 +409,7 @@ int main(int argc, char const *argv[])
     // smart_pointer::UniquePtr::run();
     // smart_pointer::Const::run2();
     // smart_pointer::Ref::run();
-    smart_pointer::Ref2::run();
+    // smart_pointer::Ref2::run();
+    smart_pointer::Inferitance::run();
     return 0;
 }

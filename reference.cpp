@@ -92,9 +92,74 @@ void run()
 
 } // namespace RValue
 
+namespace ReferenceField
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Print() const
+    {
+        cout << "Item: " << mName << endl;
+    }
+
+    string mName;
+};
+
+class Bucket
+{
+  public:
+    Bucket(const Item &item) : mItem(item)
+    {
+    }
+    void Print() const
+    {
+        cout << "In the bucket, ";
+        mItem.Print();
+    }
+
+    const Item &mItem;
+};
+
+// NG
+Bucket Attach1(const string &name)
+{
+    Item i1(name);
+    Bucket b1(i1);
+    return b1;
+}
+
+Item *genItem(const string &name)
+{
+    return new Item(name);
+}
+
+Bucket Attach2(const string &name)
+{
+    // auto i1 = make_shared<Item>(name);
+
+    // auto i1 = genItem(name);
+    // Bucket b1(*i1);
+
+    Bucket b1(*genItem(name));
+    return b1;
+}
+
+void run()
+{
+    Bucket b1 = Attach2("aaa");
+    b1.Print();
+}
+
+} // namespace ReferenceField
+
 int main(int argc, char const *argv[])
 {
     // Reference::run();
-    RValue::run();
+    // RValue::run();
+    ReferenceField::run();
     return 0;
 }
