@@ -102,19 +102,6 @@ void run()
 
 } // namespace NestedPtr
 
-namespace UniquePtr
-{
-
-void run()
-{
-    unique_ptr<int> i = make_unique<int>(1);
-    unique_ptr<int> i2 = std::move(i);
-
-    cout << *i << endl;
-}
-
-} // namespace UniquePtr
-
 namespace Const
 {
 
@@ -406,10 +393,10 @@ int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
     // smart_pointer::Nullptr::run();
-    // smart_pointer::UniquePtr::run();
+    smart_pointer::UniquePtr::run();
     // smart_pointer::Const::run2();
     // smart_pointer::Ref::run();
     // smart_pointer::Ref2::run();
-    smart_pointer::Inferitance::run();
+    // smart_pointer::Inferitance::run();
     return 0;
 }
