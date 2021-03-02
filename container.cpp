@@ -115,12 +115,81 @@ void run()
 
 } // namespace Deque
 
+namespace Size
+{
+
+struct Item
+{
+    int a;
+    // int b;
+    // int c;
+    // int d;
+    // int e;
+    // int f;
+    // int g;
+    // int h;
+    // int i;
+    // int j;
+
+    void print()
+    {
+        cout << a << endl;
+    }
+    void print() const
+    {
+        cout << "const" << a << endl;
+    }
+};
+
+vector<Item> v;
+// vector<Item *> v;
+
+void GenVector(int count)
+{
+    for (size_t i = 0; i < count; i++)
+        v.push_back(Item());
+}
+
+void addItem(int i)
+{
+    Item item;
+    item.a = i;
+    v.push_back(item);
+}
+
+void run()
+{
+    // while (true)
+    // {
+    //     GenVector(10000);
+    //     sleep(1);
+    // }
+
+    addItem(1);
+    addItem(2);
+    addItem(3);
+
+    for (auto item : v)
+    {
+        // item.print();
+        item.a++;
+    }
+
+    for (auto &item : v)
+    {
+        item.print();
+    }
+}
+
+} // namespace Size
+
 } // namespace Container
 
 int main(int argc, char const *argv[])
 {
     // Container::Stack::run();
     // Container::Vector::run();
-    Container::Deque::run();
+    // Container::Deque::run();
+    Container::Size::run();
     return 0;
 }

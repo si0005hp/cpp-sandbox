@@ -387,6 +387,83 @@ void run()
 
 } // namespace Inferitance
 
+namespace UniquePtr
+{
+
+class Obj
+{
+  public:
+    Obj(const string &name) : name(name)
+    {
+    }
+    Obj(const Obj &other) : name(other.name)
+    {
+        if (&other == this)
+            cout << "from the same!" << endl;
+        else
+            cout << "from some other!" << endl;
+    }
+
+    Obj &operator=(const Obj &other)
+    {
+        if (&other == this)
+        {
+            cout << "from the same!" << endl;
+            // nothing to do
+        }
+        else
+        {
+            cout << "from some other!" << endl;
+            name = other.name;
+        }
+        return *this;
+    }
+
+    void PrintAddress()
+    {
+        cout << this << endl;
+    }
+
+    void Print()
+    {
+        cout << name << endl;
+    }
+
+    string name;
+};
+
+class Bucket
+{
+  public:
+    Bucket(unique_ptr<Obj> &&obj) : obj(move(obj))
+    {
+    }
+    void PrintObj()
+    {
+        obj->Print();
+    }
+
+    Obj &getObj()
+    {
+        return *obj;
+    }
+
+  private:
+    unique_ptr<Obj> obj;
+};
+
+void run()
+{
+    auto o1 = make_unique<Obj>("aaa");
+
+    Bucket b(move(o1));
+    b.getObj().name = "bbb";
+
+    b.PrintObj();
+}
+
+} // namespace UniquePtr
+
 } // namespace smart_pointer
 
 int main(int argc, char const *argv[])

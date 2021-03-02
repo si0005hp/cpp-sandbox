@@ -11,8 +11,16 @@ class Message
     Message(const string &msg) : mMsg(msg)
     {
     }
+    void Print() const
+    {
+        cout << mMsg << endl;
+    }
 
-    const Message &Get()
+    const Message &Get() const
+    {
+        return *this;
+    }
+    Message &Get()
     {
         return *this;
     }
@@ -27,8 +35,19 @@ void SendMessage(const Message &msg)
 
 void run()
 {
+    // Message m("hi there");
+    // SendMessage(m.Get());
+
     Message m("hi there");
-    SendMessage(m.Get());
+    cout << &m << endl;
+
+    Message &mr = m;
+    cout << &mr << endl;
+
+    Message &mr2 = m.Get();
+    cout << &mr2 << endl;
+
+    // SendMessage(m.Get());
 }
 
 } // namespace Reference
@@ -156,10 +175,107 @@ void run()
 
 } // namespace ReferenceField
 
+namespace AddressLifetime
+{
+
+class Item
+{
+  public:
+    Item(const string &name) : mName(name)
+    {
+    }
+    void Print() const
+    {
+        cout << "Item: " << mName << endl;
+    }
+
+    string mName;
+};
+
+unordered_map<int, shared_ptr<Item>> map;
+
+void printMap()
+{
+    for (auto &[k, v] : map)
+        cout << k << ":" << v->mName << endl;
+}
+
+void someProc(int i)
+{
+    shared_ptr<Item> item = nullptr;
+    if (map.contains(i))
+        item = map[i];
+
+    if (item)
+        cout << "someProc:\t" << &map[0]->mName << endl;
+}
+
+void run()
+{
+    for (size_t i = 0; i < 3; i++)
+    {
+        string s = "[" + to_string(i) + "]";
+        auto item = make_shared<Item>(s);
+        map[i] = item;
+    }
+
+    cout << "run:\t" << &map[0]->mName << endl;
+    someProc(0);
+}
+
+} // namespace AddressLifetime
+
+namespace Initializer
+{
+
+struct Data
+{
+    string title;
+    int value;
+
+    void Print()
+    {
+        cout << title << ":" << value << endl;
+    }
+};
+
+class Item
+{
+  public:
+    Item(Data &data) : mData(data)
+    {
+    }
+    ~Item()
+    {
+        cout << "hi" << endl;
+    }
+
+    void Print() const
+    {
+        mData.Print();
+    }
+
+    Data &mData;
+};
+
+void run()
+{
+    Data data{"aaa", 999};
+
+    // int i = 0;
+    // Item item(data);
+    new Item(data);
+
+    // item.Print();
+}
+
+} // namespace Initializer
+
 int main(int argc, char const *argv[])
 {
     // Reference::run();
     // RValue::run();
-    ReferenceField::run();
+    // AddressLifetime::run();
+    Initializer::run();
     return 0;
 }
