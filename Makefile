@@ -3,7 +3,7 @@ CPP_FILES := main instanceof any pointer smart_pointer exception object optional
 							operator_overload template map ostream struct constructor reference fs container free lambda \
 							const move unique_ptr
 
-EFFECTIVE_CPP_FILES := introduction 3
+EFFECTIVE_CPP_FILES := introduction 3 7
 
 TARGETS := $(CPP_FILES)
 
