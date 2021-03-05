@@ -8,17 +8,9 @@ namespace Ostream
 class Writer
 {
   public:
-    Writer(std::ostream &os) : mOs(os)
-    {
-    }
-    void Write(const string &s)
-    {
-        mOs << s;
-    }
-    void Writeln(const string &s)
-    {
-        mOs << s << endl;
-    }
+    Writer(std::ostream &os) : mOs(os) {}
+    void Write(const string &s) { mOs << s; }
+    void Writeln(const string &s) { mOs << s << endl; }
 
     std::ostream &mOs;
 };

@@ -8,10 +8,7 @@ namespace operator_overload
 class Animal
 {
   public:
-    virtual void Cry()
-    {
-        cout << "Im a Animal" << endl;
-    }
+    virtual void Cry() { cout << "Im a Animal" << endl; }
     // virtual void Cry() = 0;
 
     virtual bool operator==(const Animal &other)
@@ -30,10 +27,7 @@ class Animal
 class Dog : public Animal
 {
   public:
-    void Cry() override
-    {
-        cout << "Im a dog" << endl;
-    }
+    void Cry() override { cout << "Im a dog" << endl; }
     bool operator==(const Animal &other)
     {
         cout << "[Dog ==]" << endl;
@@ -50,10 +44,7 @@ class Dog : public Animal
 class Cat : public Animal
 {
   public:
-    void Cry() override
-    {
-        cout << "Im a cat" << endl;
-    }
+    void Cry() override { cout << "Im a cat" << endl; }
     bool operator==(const Animal &other)
     {
         cout << "[Cat ==]" << endl;

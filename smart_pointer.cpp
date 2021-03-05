@@ -38,19 +38,15 @@ namespace NestedPtr
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
+    Item(const string &name) : mName(name) {}
     string mName;
 };
 
-template <typename T> class Database
+template <typename T>
+class Database
 {
   public:
-    void add(T item)
-    {
-        mItems.push_back(item);
-    }
+    void add(T item) { mItems.push_back(item); }
 
     vector<T> mItems;
 };
@@ -108,17 +104,9 @@ namespace Const
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Mod(const string &name)
-    {
-        mName = name;
-    }
-    void Print() const
-    {
-        cout << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Mod(const string &name) { mName = name; }
+    void Print() const { cout << mName << endl; }
 
     string mName;
 };
@@ -126,20 +114,10 @@ class Item
 class ItemHolder
 {
   public:
-    ItemHolder()
-    {
-    }
-    ItemHolder(const shared_ptr<Item> &mItem) : mItem(mItem)
-    {
-    }
-    const shared_ptr<Item> &GetItem() const
-    {
-        return mItem;
-    }
-    const Item &GetCItem() const
-    {
-        return *mItem;
-    }
+    ItemHolder() {}
+    ItemHolder(const shared_ptr<Item> &mItem) : mItem(mItem) {}
+    const shared_ptr<Item> &GetItem() const { return mItem; }
+    const Item &GetCItem() const { return *mItem; }
 
     shared_ptr<Item> mItem;
 };
@@ -178,27 +156,13 @@ namespace Ref
 class Item : public enable_shared_from_this<Item>
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print() const
-    {
-        cout << "Item: " << mName << endl;
-    }
-    string Str() const
-    {
-        return "Item: " + mName;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() const { cout << "Item: " << mName << endl; }
+    string Str() const { return "Item: " + mName; }
 
-    shared_ptr<const Item> Ptr() const
-    {
-        return shared_from_this();
-    }
+    shared_ptr<const Item> Ptr() const { return shared_from_this(); }
 
-    shared_ptr<Item> Ptr()
-    {
-        return shared_from_this();
-    }
+    shared_ptr<Item> Ptr() { return shared_from_this(); }
 
     string mName;
 };
@@ -206,14 +170,8 @@ class Item : public enable_shared_from_this<Item>
 class Database
 {
   public:
-    void AddItem(const shared_ptr<Item> &item)
-    {
-        mItems.push_back(item);
-    }
-    void AddItem(Item &item)
-    {
-        mItems.push_back(item.Ptr());
-    }
+    void AddItem(const shared_ptr<Item> &item) { mItems.push_back(item); }
+    void AddItem(Item &item) { mItems.push_back(item.Ptr()); }
     void Print() const
     {
         for (auto item : mItems)
@@ -260,17 +218,9 @@ namespace Ref2
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print() const
-    {
-        cout << "Item: " << mName << endl;
-    }
-    string Str() const
-    {
-        return "Item: " + mName;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() const { cout << "Item: " << mName << endl; }
+    string Str() const { return "Item: " + mName; }
 
     string mName;
 };
@@ -338,13 +288,8 @@ namespace Inferitance
 class Book
 {
   public:
-    Book(const string &title) : mTitle(title)
-    {
-    }
-    void Print()
-    {
-        cout << Prefix() << ":" << mTitle << endl;
-    }
+    Book(const string &title) : mTitle(title) {}
+    void Print() { cout << Prefix() << ":" << mTitle << endl; }
     virtual string Prefix() = 0;
 
     string mTitle;
@@ -353,22 +298,14 @@ class Book
 class Novel : public Book
 {
   public:
-    Novel(const string &title) : Book(title)
-    {
-    }
-    string Prefix() override
-    {
-        return "Novel ";
-    }
+    Novel(const string &title) : Book(title) {}
+    string Prefix() override { return "Novel "; }
 };
 
 class BookDatabase
 {
   public:
-    void Add(const shared_ptr<Book> &book)
-    {
-        mBooks.push_back(book);
-    }
+    void Add(const shared_ptr<Book> &book) { mBooks.push_back(book); }
     vector<shared_ptr<Book>> mBooks;
 };
 
@@ -393,9 +330,7 @@ namespace UniquePtr
 class Obj
 {
   public:
-    Obj(const string &name) : name(name)
-    {
-    }
+    Obj(const string &name) : name(name) {}
     Obj(const Obj &other) : name(other.name)
     {
         if (&other == this)
@@ -419,15 +354,9 @@ class Obj
         return *this;
     }
 
-    void PrintAddress()
-    {
-        cout << this << endl;
-    }
+    void PrintAddress() { cout << this << endl; }
 
-    void Print()
-    {
-        cout << name << endl;
-    }
+    void Print() { cout << name << endl; }
 
     string name;
 };
@@ -435,18 +364,10 @@ class Obj
 class Bucket
 {
   public:
-    Bucket(unique_ptr<Obj> &&obj) : obj(move(obj))
-    {
-    }
-    void PrintObj()
-    {
-        obj->Print();
-    }
+    Bucket(unique_ptr<Obj> &&obj) : obj(move(obj)) {}
+    void PrintObj() { obj->Print(); }
 
-    Obj &getObj()
-    {
-        return *obj;
-    }
+    Obj &getObj() { return *obj; }
 
   private:
     unique_ptr<Obj> obj;

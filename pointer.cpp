@@ -7,7 +7,8 @@ namespace pointer
 
 namespace NullCheck
 {
-template <typename T> void CheckNullPtr(T *p, const string &name)
+template <typename T>
+void CheckNullPtr(T *p, const string &name)
 {
     if (p)
     {
@@ -48,19 +49,13 @@ class Animal
 class Dog : public Animal
 {
   public:
-    void Cry() override
-    {
-        cout << "Im a dog" << endl;
-    }
+    void Cry() override { cout << "Im a dog" << endl; }
 };
 
 class Cat : public Animal
 {
   public:
-    void Cry() override
-    {
-        cout << "Im a cat" << endl;
-    }
+    void Cry() override { cout << "Im a cat" << endl; }
 };
 
 void run()
@@ -84,13 +79,8 @@ namespace Address
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print() const
-    {
-        cout << "Item: " << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() const { cout << "Item: " << mName << endl; }
 
     string mName;
 };

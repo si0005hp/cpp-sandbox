@@ -8,22 +8,11 @@ namespace Reference
 class Message
 {
   public:
-    Message(const string &msg) : mMsg(msg)
-    {
-    }
-    void Print() const
-    {
-        cout << mMsg << endl;
-    }
+    Message(const string &msg) : mMsg(msg) {}
+    void Print() const { cout << mMsg << endl; }
 
-    const Message &Get() const
-    {
-        return *this;
-    }
-    Message &Get()
-    {
-        return *this;
-    }
+    const Message &Get() const { return *this; }
+    Message &Get() { return *this; }
 
     string mMsg;
 };
@@ -60,27 +49,16 @@ struct Data
     string title;
     int value;
 
-    void Print()
-    {
-        cout << title << ":" << value << endl;
-    }
+    void Print() { cout << title << ":" << value << endl; }
 };
 
 class Obj
 {
   public:
-    Obj(Data &&data) : mData(std::move(data))
-    {
-    }
+    Obj(Data &&data) : mData(std::move(data)) {}
 
-    void PrintData()
-    {
-        cout << mData.title << ":" << mData.value << endl;
-    }
-    Data &GetData()
-    {
-        return mData;
-    }
+    void PrintData() { cout << mData.title << ":" << mData.value << endl; }
+    Data &GetData() { return mData; }
 
   private:
     Data mData;
@@ -117,13 +95,8 @@ namespace ReferenceField
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print() const
-    {
-        cout << "Item: " << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() const { cout << "Item: " << mName << endl; }
 
     string mName;
 };
@@ -131,9 +104,7 @@ class Item
 class Bucket
 {
   public:
-    Bucket(const Item &item) : mItem(item)
-    {
-    }
+    Bucket(const Item &item) : mItem(item) {}
     void Print() const
     {
         cout << "In the bucket, ";
@@ -181,13 +152,8 @@ namespace AddressLifetime
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print() const
-    {
-        cout << "Item: " << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() const { cout << "Item: " << mName << endl; }
 
     string mName;
 };
@@ -233,27 +199,16 @@ struct Data
     string title;
     int value;
 
-    void Print()
-    {
-        cout << title << ":" << value << endl;
-    }
+    void Print() { cout << title << ":" << value << endl; }
 };
 
 class Item
 {
   public:
-    Item(Data &data) : mData(data)
-    {
-    }
-    ~Item()
-    {
-        cout << "hi" << endl;
-    }
+    Item(Data &data) : mData(data) {}
+    ~Item() { cout << "hi" << endl; }
 
-    void Print() const
-    {
-        mData.Print();
-    }
+    void Print() const { mData.Print(); }
 
     Data &mData;
 };

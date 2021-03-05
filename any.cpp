@@ -5,7 +5,8 @@ using namespace std;
 namespace AnyVector
 {
 
-template <typename T> bool IsType(any a)
+template <typename T>
+bool IsType(any a)
 {
     // try
     // {
@@ -19,12 +20,14 @@ template <typename T> bool IsType(any a)
     return IsType2<T>(a);
 }
 
-template <typename T> bool IsType2(any a)
+template <typename T>
+bool IsType2(any a)
 {
     return a.type().name() == typeid(T).name();
 }
 
-template <typename T> vector<any> ConvertToAnyVector(const vector<T> &src)
+template <typename T>
+vector<any> ConvertToAnyVector(const vector<T> &src)
 {
     vector<any> dst;
     for (auto e : src)
@@ -107,7 +110,8 @@ void IsEqual(any x, any y)
     }
 }
 
-template <typename T> void Inspect(const any &a)
+template <typename T>
+void Inspect(const any &a)
 {
     p("--------------------------------------------");
     cout << "[a.type().name()]: " << a.type().name() << endl;

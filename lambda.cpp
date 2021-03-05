@@ -36,7 +36,8 @@ void inc2()
     cout << "final i: " << i << endl;
 }
 
-void WithIntConsumer(const function<void(int intParam1)> &intConsumer, int intArg1)
+void WithIntConsumer(const function<void(int intParam1)> &intConsumer,
+                     int intArg1)
 {
     intConsumer(intArg1);
 }
@@ -44,11 +45,11 @@ void WithIntConsumer(const function<void(int intParam1)> &intConsumer, int intAr
 void ftype()
 {
     WithIntConsumer(
-        [=](int intArg1) {
-            intArg1++;
-            cout << intArg1 << endl;
-        },
-        1);
+      [=](int intArg1) {
+          intArg1++;
+          cout << intArg1 << endl;
+      },
+      1);
 
     int base = 10;
     WithIntConsumer([=](int intArg1) { cout << base * intArg1 << endl; }, 9);

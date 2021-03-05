@@ -10,17 +10,17 @@ using namespace std;
 class Value
 {
   public:
-    template <typename T> T As();
+    template <typename T>
+    T As();
 };
 
 class String : public Value
 {
   public:
-    String(const string &value) : mValue(value)
-    {
-    }
+    String(const string &value) : mValue(value) {}
 
-    template <typename T> T As()
+    template <typename T>
+    T As()
     {
         return mValue;
     }
@@ -31,11 +31,10 @@ class String : public Value
 class Number : public Value
 {
   public:
-    Number(const double &value) : mValue(value)
-    {
-    }
+    Number(const double &value) : mValue(value) {}
 
-    template <typename T> T As()
+    template <typename T>
+    T As()
     {
         return mValue;
     }
@@ -43,7 +42,8 @@ class Number : public Value
     double mValue;
 };
 
-template <typename T> T DynamicCast(Value &value)
+template <typename T>
+T DynamicCast(Value &value)
 {
     T &v = dynamic_cast<T &>(value);
     return v;

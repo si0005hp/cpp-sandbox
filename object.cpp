@@ -7,13 +7,8 @@ namespace object
 class Item
 {
   public:
-    Item(const string &name, const int &price) : mName(name), mPrice(price)
-    {
-    }
-    void Print()
-    {
-        cout << "[Item] " << mName << " " << mPrice << "$" << endl;
-    }
+    Item(const string &name, const int &price) : mName(name), mPrice(price) {}
+    void Print() { cout << "[Item] " << mName << " " << mPrice << "$" << endl; }
 
     string mName;
     int mPrice;
@@ -44,21 +39,11 @@ namespace object2
 class Database
 {
   public:
-    Database()
-    {
-    }
-    Database(const vector<string> &values) : mValues(values)
-    {
-    }
-    void Add(const string &value)
-    {
-        mValues.push_back(value);
-    }
+    Database() {}
+    Database(const vector<string> &values) : mValues(values) {}
+    void Add(const string &value) { mValues.push_back(value); }
 
-    const vector<string> &GetValues() const
-    {
-        return mValues;
-    }
+    const vector<string> &GetValues() const { return mValues; }
 
     vector<string> mValues;
 };
@@ -86,16 +71,9 @@ namespace object3
 class SomeValue
 {
   public:
-    SomeValue() : mStr(""), mNum(0)
-    {
-    }
-    SomeValue(const string &s, const int &n) : mStr(s), mNum(n)
-    {
-    }
-    void Show() const
-    {
-        cout << mStr << ":" << mNum << endl;
-    }
+    SomeValue() : mStr(""), mNum(0) {}
+    SomeValue(const string &s, const int &n) : mStr(s), mNum(n) {}
+    void Show() const { cout << mStr << ":" << mNum << endl; }
     string mStr;
     int mNum;
 };
@@ -103,26 +81,12 @@ class SomeValue
 class SomeObject
 {
   public:
-    SomeObject()
-    {
-    }
-    void UpdateStr(const string &s)
-    {
-        mValue.mStr = s;
-    }
-    void UpdateNum(const int &n)
-    {
-        mValue.mNum = n;
-    }
-    void Show()
-    {
-        mValue.Show();
-    }
+    SomeObject() {}
+    void UpdateStr(const string &s) { mValue.mStr = s; }
+    void UpdateNum(const int &n) { mValue.mNum = n; }
+    void Show() { mValue.Show(); }
 
-    const SomeValue &GetCValue() const
-    {
-        return mValue;
-    }
+    const SomeValue &GetCValue() const { return mValue; }
 
     SomeValue mValue;
 };
@@ -152,16 +116,9 @@ namespace nest
 class Env
 {
   public:
-    Env() : mParent(nullptr)
-    {
-    }
-    Env(const shared_ptr<Env> &parent) : mParent(parent)
-    {
-    }
-    void Add(int k, string v)
-    {
-        mValues[k] = v;
-    }
+    Env() : mParent(nullptr) {}
+    Env(const shared_ptr<Env> &parent) : mParent(parent) {}
+    void Add(int k, string v) { mValues[k] = v; }
     string Get(int k)
     {
         if (mValues.contains(k))

@@ -1,7 +1,8 @@
-#include "all.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include "all.h"
 
 using namespace std;
 

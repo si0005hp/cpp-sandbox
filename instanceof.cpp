@@ -14,7 +14,8 @@ class Expr
 class BinOp : public Expr
 {
   public:
-    BinOp(const Expr &mLeft, const Expr &mRight, const char mOp) : mLeft(mLeft), mRight(mRight), mOp(mOp)
+    BinOp(const Expr &mLeft, const Expr &mRight, const char mOp)
+      : mLeft(mLeft), mRight(mRight), mOp(mOp)
     {
     }
     void Show() const
@@ -32,13 +33,8 @@ class BinOp : public Expr
 class Number : public Expr
 {
   public:
-    Number(int val) : val(val)
-    {
-    }
-    void Show() const
-    {
-        cout << val << endl;
-    }
+    Number(int val) : val(val) {}
+    void Show() const { cout << val << endl; }
 
     int val;
 };
@@ -48,12 +44,14 @@ class Number : public Expr
 //     return is_base_of<Base, T>::value;
 // }
 
-template <typename Base, typename T> inline bool Instanceof(const T &)
+template <typename Base, typename T>
+inline bool Instanceof(const T &)
 {
     return is_base_of<Base, T>::value;
 }
 
-template <typename T> void DoCheck(T &t)
+template <typename T>
+void DoCheck(T &t)
 {
     if (Instanceof<string>(t))
     {

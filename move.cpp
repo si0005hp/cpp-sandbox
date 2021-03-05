@@ -8,13 +8,8 @@ namespace Move
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print()
-    {
-        cout << "Item: " << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() { cout << "Item: " << mName << endl; }
 
     string mName;
 };
@@ -22,9 +17,7 @@ class Item
 class Database
 {
   public:
-    Database(vector<Item> &&items) : mItems(std::move(items))
-    {
-    }
+    Database(vector<Item> &&items) : mItems(std::move(items)) {}
     void Print()
     {
         for (auto &&item : mItems)
@@ -51,9 +44,7 @@ void run()
 class Database2
 {
   public:
-    Database2(vector<shared_ptr<Item>> &&items) : mItems(std::move(items))
-    {
-    }
+    Database2(vector<shared_ptr<Item>> &&items) : mItems(std::move(items)) {}
     void Print()
     {
         for (auto &&item : mItems)
@@ -68,7 +59,8 @@ class Database2
 
 void run2()
 {
-    vector<shared_ptr<Item>> items{make_shared<Item>("a"), make_shared<Item>("b"), make_shared<Item>("c")};
+    vector<shared_ptr<Item>> items{
+      make_shared<Item>("a"), make_shared<Item>("b"), make_shared<Item>("c")};
     for (auto &&item : items)
         cout << item << endl;
     cout << "-----" << endl;

@@ -8,9 +8,7 @@ namespace String
 class Foo
 {
   public:
-    Foo(const string &msg) : mMsg(msg)
-    {
-    }
+    Foo(const string &msg) : mMsg(msg) {}
     const string mMsg;
 };
 

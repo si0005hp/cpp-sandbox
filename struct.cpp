@@ -9,12 +9,8 @@ typedef uint64_t Value;
 
 struct Foo
 {
-    Foo()
-    {
-    }
-    Foo(const string &msg) : mMsg(msg)
-    {
-    }
+    Foo() {}
+    Foo(const string &msg) : mMsg(msg) {}
     const string mMsg;
 };
 

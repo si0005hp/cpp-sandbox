@@ -8,22 +8,11 @@ namespace Const
 class Item
 {
   public:
-    Item(const string &name) : mName(name)
-    {
-    }
-    void Print()
-    {
-        cout << "Item: " << mName << endl;
-    }
+    Item(const string &name) : mName(name) {}
+    void Print() { cout << "Item: " << mName << endl; }
 
-    const Item *GetCP() const
-    {
-        return this;
-    }
-    const Item &GetCR() const
-    {
-        return *this;
-    }
+    const Item *GetCP() const { return this; }
+    const Item &GetCR() const { return *this; }
 
     string mName;
 };

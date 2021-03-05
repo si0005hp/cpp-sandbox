@@ -10,9 +10,7 @@ class Person
     friend class Database;
 
   public:
-    Person(string const &name, int const &age) : mName(name), mAge(age)
-    {
-    }
+    Person(string const &name, int const &age) : mName(name), mAge(age) {}
 
     string mName;
 
@@ -30,10 +28,7 @@ class Database
         p("----- constructor end -----");
     }
 
-    void Show()
-    {
-        Show(mPeople);
-    }
+    void Show() { Show(mPeople); }
 
     void Show(vector<Person> const &people)
     {

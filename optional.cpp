@@ -7,7 +7,8 @@ namespace Optional
 
 using namespace std;
 
-template <typename T> void Inspect(const optional<T> &opt)
+template <typename T>
+void Inspect(const optional<T> &opt)
 {
     if (opt.has_value())
     {

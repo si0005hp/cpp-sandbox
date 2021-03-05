@@ -10,10 +10,7 @@ class MyException : public exception
         cout << "MyException::MyException - set m_msg to:" << m_msg << endl;
     }
 
-    ~MyException()
-    {
-        cout << "MyException::~MyException" << endl;
-    }
+    ~MyException() { cout << "MyException::~MyException" << endl; }
 
     virtual const char *what() const throw()
     {

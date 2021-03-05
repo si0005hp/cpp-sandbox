@@ -131,14 +131,8 @@ struct Item
     // int i;
     // int j;
 
-    void print()
-    {
-        cout << a << endl;
-    }
-    void print() const
-    {
-        cout << "const" << a << endl;
-    }
+    void print() { cout << a << endl; }
+    void print() const { cout << "const" << a << endl; }
 };
 
 vector<Item> v;

@@ -25,10 +25,7 @@ class BasePrinter
     }
 
   protected:
-    virtual void PrintLine()
-    {
-        throw "Not supposed to be called.";
-    }
+    virtual void PrintLine() { throw "Not supposed to be called."; }
 };
 
 class Printer1 : public BasePrinter

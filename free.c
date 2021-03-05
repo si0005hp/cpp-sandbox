@@ -43,13 +43,19 @@ int main(int argc, char const *argv[])
     unsigned long counter = 0;
     while (1)
     {
-        Bucket *b =
-            makeBucket(0, "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery"
-                          "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery"
-                          "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery"
-                          "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery"
-                          "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery"
-                          "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long string");
+        Bucket *b = makeBucket(0,
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryveryveryveryveryvery"
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryveryveryveryveryvery"
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryveryveryveryveryvery"
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryveryveryveryveryvery"
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryveryveryveryveryvery"
+                               "veryveryveryveryveryveryveryveryveryveryveryver"
+                               "yveryveryveryveryveryveryvery long string");
         freeBucket(b);
 
         counter++;
