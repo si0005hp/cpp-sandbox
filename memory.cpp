@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory_resource>
 #include <string>
 
 #include "all.h"
@@ -6,51 +7,125 @@
 using namespace std;
 
 static uint32_t allocCount = 0;
+static uint32_t totalAllocSize = 0;
+
+static uint32_t currentAllocSize = 0;
 
 void *operator new(size_t size)
 {
     allocCount++;
-    std::cout << "Alloc: " << size << " bytes" << std::endl;
+    totalAllocSize += size;
+    currentAllocSize += size;
+
+    std::cout << "ALLOC: " << size << " bytes" << std::endl;
     return malloc(size);
 }
 
-// namespace Memory
-// {
+void operator delete(void *memory, size_t size)
+{
+    currentAllocSize -= size;
 
-// } // namespace Memory
+    std::cout << "FREE: " << size << " bytes" << std::endl;
+    free(memory);
+}
 
-// using namespace Memory;
+static void line(int i)
+{
+    std::cout << "--- " << i << " ---" << std::endl;
+}
 
-// using namespace std;
+using namespace std;
 
 struct MyStruct
 {
-    MyStruct(int i) : i(i) {}
-    int i;
+    MyStruct(int a) : a(a)
+    {
+        cout << "MyStruct " << a << " is constructed!" << endl;
+    }
+    ~MyStruct() { cout << "MyStruct " << a << " is destructed!" << endl; }
+
+    int a;
 };
 
-void Print(const MyStruct &s)
+vector<MyStruct *> makeVector(size_t size)
 {
-    cout << s.i << endl;
+    line(1);
+    vector<MyStruct *> v;
+    line(2);
+    for (size_t i = 0; i < size; i++)
+    {
+        MyStruct *s = new MyStruct(i + 1);
+        v.push_back(s);
+
+        // v.emplace_back(i + 1);
+    }
+    line(3);
+    return v;
 }
 
-void Print(const string &s)
+vector<string> makeStringVector(size_t size)
 {
-    cout << s << endl;
+    vector<string> v;
+    for (size_t i = 0; i < size; i++)
+    {
+        v.push_back(
+          "shdgkjhfhgrvjgvzsjfvkrytvfjhztrvfjzrytvfjztrfvjzyrtfkzrfdsgdfsgsfgsf"
+          "dgsfgsfgsfdgsfdgsfgsfgsgfdgergvkrtfvkzsrtvfkzstrfvkzsrtfvzktsvr" +
+          to_string(i));
+    }
+    return v;
+}
+
+vector<unique_ptr<string>> makeStringPtrVector(size_t size)
+{
+    vector<unique_ptr<string>> v;
+    for (size_t i = 0; i < size; i++)
+    {
+        unique_ptr<string> p = make_unique<string>(to_string(i));
+        v.push_back(move(p));
+    }
+    return v;
+}
+
+MyStruct createMyStruct(int n)
+{
+    MyStruct m(n);
+    return m;
 }
 
 int main(int argc, char const *argv[])
 {
-    // MyStruct *m = new MyStruct(1);
-    //     Print(*m);
+    int cnt = atoi(argv[1]);
 
-    string fullname = "John Thirteen";
-    string firstName = fullname.substr(0, 4);
-    string lastName = fullname.substr(5, 9);
+    // line(0);
+    // auto v = makeVector(cnt);
+    // line(4);
 
-    Print(fullname);
-    Print(firstName);
-    Print(lastName);
+    // vector<string> v;
+    // for (size_t i = 0; i < cnt; i++) { v.push_back(to_string(i)); }
+
+    // while (true)
+    // {
+    //     makeStringVector(1000);
+    //     sleep(1);
+    // }
+
+    // string s = "fsdfhgsfjhskfjdhsjkdskjd";
+    // unique_ptr<string> p(s);
+
+    // unique_ptr<string> p = make_unique<string>("fsdfhgsfjhskfjdhsjkdskjd");
+    // vector<unique_ptr<string>> v;
+    // v.push_back(move(p));
+
+    // vector<unique_ptr<string>> v = makeStringPtrVector(5);
+    // for (auto &p : v) cout << *p << endl;
+
+    line(1);
+    MyStruct s = createMyStruct(1);
+    line(2);
+
+    cout << "[totalAllocSize]: " << totalAllocSize << endl;
+    cout << "[currentAllocSize]: " << currentAllocSize << endl;
 
     return 0;
 }

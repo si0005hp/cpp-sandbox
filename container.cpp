@@ -83,8 +83,7 @@ void run()
     //     cout << &i << endl;
 
     vector<string> v2{"a", "b", "c"};
-    for (auto i : v2)
-        cout << &i << endl;
+    for (auto i : v2) cout << &i << endl;
     // va(v2);
     vb(v2);
 }
@@ -100,8 +99,7 @@ void run()
     d.push_front(1);
     d.push_front(2);
 
-    for (auto i : d)
-        cout << i << endl;
+    for (auto i : d) cout << i << endl;
 
     cout << d.at(0) << endl;
     cout << d.front() << endl;
@@ -140,8 +138,7 @@ vector<Item> v;
 
 void GenVector(int count)
 {
-    for (size_t i = 0; i < count; i++)
-        v.push_back(Item());
+    for (size_t i = 0; i < count; i++) v.push_back(Item());
 }
 
 void addItem(int i)
@@ -169,13 +166,45 @@ void run()
         item.a++;
     }
 
-    for (auto &item : v)
-    {
-        item.print();
-    }
+    for (auto &item : v) { item.print(); }
 }
 
 } // namespace Size
+
+namespace CopyCotainer
+{
+
+struct Obj
+{
+    Obj(int id) : id(id) { cout << "Obj " << id << " constructed!" << endl; }
+
+    Obj(const Obj &other) : id(other.id)
+    {
+        cout << "Obj " << id << " copied!" << endl;
+    }
+
+    int id;
+};
+
+void PrintAddress(const vector<Obj> &objs)
+{
+    for (auto &o : objs) { cout << &o << endl; }
+}
+
+void run()
+{
+    // Obj o1 = Obj(1);
+    vector<Obj> v1;
+    v1.reserve(3);
+    v1.emplace_back(1);
+    v1.emplace_back(2);
+    v1.emplace_back(3);
+
+    // vector<Obj> v2(v1);
+    vector<Obj> v2(move(v1));
+}
+
+} // namespace CopyCotainer
 
 } // namespace Container
 
@@ -184,6 +213,7 @@ int main(int argc, char const *argv[])
     // Container::Stack::run();
     // Container::Vector::run();
     // Container::Deque::run();
-    Container::Size::run();
+    // Container::Size::run();
+    Container::CopyCotainer::run();
     return 0;
 }

@@ -419,13 +419,49 @@ void run()
 
 } // namespace UniquePtr
 
+namespace NestedPtr2
+{
+
+struct Item
+{
+    ~Item() { cout << "Item destructed\n"; }
+};
+
+struct Obj
+{
+    // Obj(Item *item) : item(item) {}
+    Obj(unique_ptr<Item> item) : item(move(item)) {}
+    ~Obj() { cout << "Obj destructed\n"; }
+
+    // Item *item;
+    unique_ptr<Item> item;
+};
+
+void run()
+{
+    {
+        // Item *item = new Item();
+        // Obj *o = new Obj(item);
+
+        // Item *item = new Item();
+        // Obj *o = new Obj(item);
+
+        auto item = make_unique<Item>();
+        auto o = make_unique<Obj>(move(item));
+    }
+    cout << "end\n";
+}
+
+} // namespace NestedPtr2
+
 } // namespace smart_pointer
 
 int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
+    smart_pointer::NestedPtr2::run();
     // smart_pointer::Nullptr::run();
-    smart_pointer::UniquePtr::run();
+    // smart_pointer::UniquePtr::run();
     // smart_pointer::Const::run2();
     // smart_pointer::Ref::run();
     // smart_pointer::Ref2::run();
