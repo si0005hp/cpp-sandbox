@@ -10,10 +10,7 @@ namespace Nullptr
 
 void CheckNull(shared_ptr<int> p)
 {
-    if (p)
-    {
-        cout << "NOT null (value: " << *p << ")" << endl;
-    }
+    if (p) { cout << "NOT null (value: " << *p << ")" << endl; }
     else
     {
         cout << "null" << endl;
@@ -54,15 +51,13 @@ class Database
 void MemLeak1(int itemCount)
 {
     Database<Item *> db;
-    for (int i = 0; i < itemCount; i++)
-        db.add(new Item(to_string(itemCount)));
+    for (int i = 0; i < itemCount; i++) db.add(new Item(to_string(itemCount)));
 }
 
 void MemLeak2(int itemCount)
 {
     auto db = make_shared<Database<Item *>>();
-    for (int i = 0; i < itemCount; i++)
-        db->add(new Item(to_string(itemCount)));
+    for (int i = 0; i < itemCount; i++) db->add(new Item(to_string(itemCount)));
 }
 
 void MemLeak3(int itemCount)
@@ -237,8 +232,7 @@ class Database
     }
     void Print() const
     {
-        for (auto &itemRef : mItemRefs)
-            itemRef.get().Print();
+        for (auto &itemRef : mItemRefs) itemRef.get().Print();
     }
     int Get(const shared_ptr<Item> &ptr) const
     {
@@ -330,8 +324,8 @@ namespace UniquePtr
 class Obj
 {
   public:
-    Obj(const string &name) : name(name) {}
-    Obj(const Obj &other) : name(other.name)
+    explicit Obj(const string &name) : name(name) {}
+    explicit Obj(const Obj &other) : name(other.name)
     {
         if (&other == this)
             cout << "from the same!" << endl;
@@ -373,14 +367,54 @@ class Bucket
     unique_ptr<Obj> obj;
 };
 
+unique_ptr<Obj> makeObj(const string &arg)
+{
+    auto p = make_unique<Obj>(arg);
+    return p;
+}
+
+Obj *makeObjRawPointer(const string &arg)
+{
+    return new Obj(arg);
+}
+
+void doSomethingWithRawPointer(size_t count)
+{
+    for (size_t i = 0; i < count; i++)
+    {
+        Obj *p = makeObjRawPointer(to_string(i));
+    }
+    cout << "done WithRawPointer" << endl;
+}
+
+void doSomethingWithSmartPointer(size_t count)
+{
+    for (size_t i = 0; i < count; i++)
+    {
+        // Obj *p = makeObjRawPointer(to_string(i));
+        // unique_ptr<Obj> ptr(p);
+        unique_ptr<Obj> ptr(makeObjRawPointer(to_string(i)));
+    }
+    cout << "done WithSmartPointer" << endl;
+}
+
 void run()
 {
-    auto o1 = make_unique<Obj>("aaa");
+    // auto o1 = make_unique<Obj>("aaa");
 
-    Bucket b(move(o1));
-    b.getObj().name = "bbb";
+    // Bucket b(move(o1));
+    // b.getObj().name = "bbb";
 
-    b.PrintObj();
+    // b.PrintObj();
+
+    // auto p = makeObj("aaa");
+    // Bucket b(p);
+
+    while (true)
+    {
+        doSomethingWithSmartPointer(20000);
+        sleep(1);
+    }
 }
 
 } // namespace UniquePtr
