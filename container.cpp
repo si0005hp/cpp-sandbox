@@ -200,8 +200,8 @@ void run()
     v1.emplace_back(2);
     v1.emplace_back(3);
 
-    // vector<Obj> v2(v1);
-    vector<Obj> v2(move(v1));
+    vector<Obj> v2(v1);
+    // vector<Obj> v2(move(v1));
 }
 
 } // namespace CopyCotainer

@@ -456,15 +456,32 @@ void run()
 
 } // namespace smart_pointer
 
+class Value
+{
+  public:
+    void someFunc1() {}
+    void someFunc2() {}
+    void someFunc3() {}
+    void someFunc4() {}
+    void someFunc5() {}
+    void someFunc6() {}
+
+  private:
+    int value;
+};
+
 int main(int argc, char const *argv[])
 {
     // smart_pointer::NestedPtr::run();
-    smart_pointer::NestedPtr2::run();
+    // smart_pointer::NestedPtr2::run();
     // smart_pointer::Nullptr::run();
     // smart_pointer::UniquePtr::run();
     // smart_pointer::Const::run2();
     // smart_pointer::Ref::run();
     // smart_pointer::Ref2::run();
     // smart_pointer::Inferitance::run();
+
+    size_t size = sizeof(Value);
+    cout << size << endl;
     return 0;
 }

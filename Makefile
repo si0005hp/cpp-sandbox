@@ -1,7 +1,7 @@
 gcc_options = -std=c++2a -Wall --pedantic-error
 CPP_FILES := main instanceof any pointer smart_pointer exception object optional friend virtual string \
 							operator_overload template map ostream struct constructor reference fs container free lambda \
-							const move unique_ptr inheritance memory array destructor
+							const move unique_ptr inheritance memory array destructor size
 
 EFFECTIVE_CPP_FILES := introduction 3 7
 
