@@ -111,6 +111,20 @@ void run()
     }
 }
 
+void run2()
+{
+    deque<int> d;
+    d.push_back(1);
+    d.push_back(2);
+    d.push_back(3);
+
+    for (auto i : d) cout << i << endl;
+
+    cout << "-----" << endl;
+
+    cout << d[2 - 1] << endl;
+}
+
 } // namespace Deque
 
 namespace Size
@@ -178,10 +192,7 @@ struct Obj
 {
     Obj(int id) : id(id) { cout << "Obj " << id << " constructed!" << endl; }
 
-    Obj(const Obj &other) : id(other.id)
-    {
-        cout << "Obj " << id << " copied!" << endl;
-    }
+    Obj(const Obj &other) : id(other.id) { cout << "Obj " << id << " copied!" << endl; }
 
     int id;
 };
@@ -213,7 +224,8 @@ int main(int argc, char const *argv[])
     // Container::Stack::run();
     // Container::Vector::run();
     // Container::Deque::run();
+    Container::Deque::run2();
     // Container::Size::run();
-    Container::CopyCotainer::run();
+    // Container::CopyCotainer::run();
     return 0;
 }

@@ -62,6 +62,21 @@ void genStringVector(int count)
     for (size_t i = 0; i < count; i++) { v.push_back(to_string(i)); }
 }
 
+void printp(string s)
+{
+    printf("%p\n", s.c_str());
+}
+
+void printp(shared_ptr<string> sp)
+{
+    printf("%p\n", sp->c_str());
+}
+
+void printp(unique_ptr<string> sp)
+{
+    printf("%p\n", sp->c_str());
+}
+
 void run3()
 {
     // while (true)
@@ -71,16 +86,68 @@ void run3()
     //     cout << "-----" << endl;
     // }
 
-    // string s = "aaa";
+    // cout << sizeof(string) << endl;
+    // cout << sizeof(string *) << endl;
 
-    cout << sizeof(string) << endl;
-    cout << sizeof(string *) << endl;
+    // string s =
+    //   "adk;jgn;aisgn;iodrng'okrng'kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'"
+    //   "sdflkhsd'flkn'sdlfkns'dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'"
+    //   "sodihn'sdoifhn'sdihn'sdfioh'dsfijs;dfnh'sdfikh'sodifadk;jgn;aisgn;"
+    //   "iodrng'okrng'kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'sdflkhsd'flkn'"
+    //   "sdlfkns'dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'sodihn'sdoifhn'"
+    //   "sdihn'sdfioh'dsfijs;dfnh'sdfikh'sodifadk;jgn;aisgn;iodrng'okrng'"
+    //   "kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'sdflkhsd'flkn'sdlfkns'"
+    //   "dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'sodihn'sdoifhn'sdihn'"
+    //   "sdfioh'dsfijs;dfnh'sdfikh'sodifadk;jgn;aisgn;iodrng'okrng'"
+    //   "kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'sdflkhsd'flkn'sdlfkns'"
+    //   "dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'sodihn'sdoifhn'sdihn'"
+    //   "sdfioh'dsfijs;dfnh'sdfikh'sodifadk;jgn;aisgn;iodrng'okrng'"
+    //   "kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'sdflkhsd'flkn'sdlfkns'"
+    //   "dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'sodihn'sdoifhn'sdihn'"
+    //   "sdfioh'dsfijs;dfnh'sdfikh'sodifadk;jgn;aisgn;iodrng'okrng'"
+    //   "kfgjksdlfkjnbk;sdjfgns;dkfjhn;dsklhndslkhn'sdflkhsd'flkn'sdlfkns'"
+    //   "dflkhnsdjhnsdkljhnskldjhns;d'oihns;difnh'sodfnh'sodihn'sdoifhn'sdihn'"
+    //   "sdfioh'dsfijs;dfnh'sdfikh'sodif";
+
+    // shared_ptr<string> s = make_shared<string>("aaa");
+    // printf("%p\n", s->c_str());
+    // printp(s);
+
+    unique_ptr<string> s = make_unique<string>("aaa");
+    printf("%p\n", s->c_str());
+    printp(move(s));
+
+    printf("%d\n", sizeof(uintptr_t));
+    printf("%d\n", sizeof(uint64_t));
+}
+
+char *copyStr(const string &s)
+{
+    int len = std::strlen(s.c_str()) + 1;
+    char *mem = (char *)malloc(sizeof(char) * len);
+    std::strncpy(mem, s.c_str(), len);
+    return mem;
+}
+
+string makeString()
+{
+    return "aaa";
+}
+
+void run4()
+{
+    // string s = "abc";
+
+    // char *c = copyStr(s);
+    // cout << c << endl;
+
+    cout << makeString() << endl;
 }
 
 } // namespace String
 
 int main(int argc, char const *argv[])
 {
-    String::run3();
+    String::run4();
     return 0;
 }

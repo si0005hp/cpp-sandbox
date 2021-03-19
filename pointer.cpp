@@ -10,10 +10,7 @@ namespace NullCheck
 template <typename T>
 void CheckNullPtr(T *p, const string &name)
 {
-    if (p)
-    {
-        cout << name << " is NOT null ptr" << endl;
-    }
+    if (p) { cout << name << " is NOT null ptr" << endl; }
     else
     {
         cout << name << " is null ptr" << endl;
@@ -121,8 +118,7 @@ class AddressHolder
     }
     void PrintAll()
     {
-        for (auto &[k, v] : mAddrMap)
-            cout << k << ":" << v << endl;
+        for (auto &[k, v] : mAddrMap) cout << k << ":" << v << endl;
     }
 
     unordered_map<shared_ptr<Item>, string> mAddrMap;
@@ -145,6 +141,24 @@ void run2()
     h.PrintAll();
 }
 
+void run3()
+{
+    Item *item = new Item("a");
+    Item *p1 = item;
+    Item *p2 = item;
+
+    cout << p1 << endl;
+    cout << p2 << endl;
+    p1->Print();
+    p2->Print();
+
+    delete item;
+
+    cout << p1 << endl;
+    cout << p2 << endl;
+    *p1;
+}
+
 } // namespace Address
 
 } // namespace pointer
@@ -152,6 +166,7 @@ int main(int argc, char const *argv[])
 {
     // pointer::NullCheck::run();
     // pointer::Polymorphism::run();
-    pointer::Address::run2();
+    // pointer::Address::run2();
+    pointer::Address::run3();
     return 0;
 }
