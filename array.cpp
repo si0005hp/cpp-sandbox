@@ -16,6 +16,10 @@ namespace Array
 
 struct Task
 {
+    Task() : ip(0) { cout << "Task is constructed!\n"; }
+    Task &operator=(const Task &other) { cout << "Task is copied!\n"; }
+
+    int ip;
 };
 
 struct Obj
@@ -74,8 +78,14 @@ void run()
 
     // Obj o[3];
 
-    Obj *arr = new Obj[3];
-    delete[] arr;
+    // Obj *arr = new Obj[3];
+    // delete[] arr;
+
+    array<Task, 5> arr;
+    Task &t0 = arr.at(0);
+    t0.ip++;
+
+    for (auto &t : arr) cout << t.ip << "\n";
 }
 
 } // namespace Array

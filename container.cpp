@@ -82,10 +82,29 @@ void run()
     // for (auto i : v)
     //     cout << &i << endl;
 
-    vector<string> v2{"a", "b", "c"};
-    for (auto i : v2) cout << &i << endl;
-    // va(v2);
-    vb(v2);
+    // vector<string> v2{"a", "b", "c"};
+    // for (auto i : v2) cout << &i << endl;
+    // // va(v2);
+    // vb(v2);
+
+    vector<int> v;
+
+    for (size_t i = 1; i <= 10; i++)
+    {
+        cout << "capacity: " << v.capacity() << "\n";
+        v.push_back(i);
+    }
+    for (auto &&i : v) { cout << i << "\n"; }
+
+    v.resize(3);
+    cout << "-----\n";
+
+    for (size_t i = 1; i <= 5; i++)
+    {
+        cout << "capacity: " << v.capacity() << "\n";
+        v.push_back(i);
+    }
+    for (auto &&i : v) { cout << i << "\n"; }
 }
 
 } // namespace Vector
@@ -222,9 +241,9 @@ void run()
 int main(int argc, char const *argv[])
 {
     // Container::Stack::run();
-    // Container::Vector::run();
+    Container::Vector::run();
     // Container::Deque::run();
-    Container::Deque::run2();
+    // Container::Deque::run2();
     // Container::Size::run();
     // Container::CopyCotainer::run();
     return 0;

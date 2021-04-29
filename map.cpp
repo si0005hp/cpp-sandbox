@@ -8,12 +8,16 @@ namespace Map
 namespace UnorderedMap
 {
 
+struct Item
+{
+    Item(const string &name) : name(name) { cout << "Item " << name << " constructed" << endl; }
+    Item(const Item &other) : name(other.name) { cout << "Item " << name << " copied" << endl; }
+    string name;
+};
+
 void PrintMap(const unordered_map<int, string> &map)
 {
-    for (auto &[k, v] : map)
-    {
-        cout << k << ":" << v << endl;
-    }
+    for (auto &[k, v] : map) { cout << k << ":" << v << endl; }
 }
 
 void run()
@@ -22,23 +26,30 @@ void run()
     map.emplace(1, "one");
     map.emplace(2, "two");
     // map.emplace(2, "two-later");
-    map[2] = "two-later";
+    // map[2] = "two-later";
+
+    // map.insert(std::make_pair(3, "three"));
+    // map.insert(std::make_pair(3, "three2"));
+    map.insert_or_assign(3, "three");
+    map.insert_or_assign(3, "three2");
 
     PrintMap(map);
 }
 
 void run2()
 {
-    unordered_map<int, shared_ptr<string>> map;
-    map.emplace(1, make_shared<string>("one"));
-    map.emplace(2, nullptr);
+    unordered_map<int, Item> map;
 
-    if (map.contains(1))
-        cout << "contains 1" << endl;
-    if (map.contains(2))
-        cout << "contains 2" << endl;
-    if (map.contains(3))
-        cout << "contains 3" << endl;
+    // Item i1("one");
+    // Item i2("two");
+    // map.insert_or_assign(1, i1);
+    // map.insert_or_assign(2, i2);
+
+    // map.insert_or_assign(1, Item("one"));
+    // map.insert_or_assign(2, Item("two"));
+
+    map.emplace(1, "one");
+    map.emplace(2, "two");
 }
 
 } // namespace UnorderedMap

@@ -32,6 +32,22 @@ class TestObject
     std::string name_;
 };
 
+struct TestEmptyObject
+{
+};
+struct TestCharObject
+{
+    char c;
+};
+struct TestIntObject
+{
+    int i;
+};
+struct TestVObject
+{
+    virtual void hello() {}
+};
+
 } // namespace lib
 
 using namespace lib;
@@ -74,6 +90,12 @@ int main(int argc, char const *argv[])
     o->id_ = 1;
     o->name_ = "sample";
     o->print();
+
+    cout << sizeof(uintptr_t) << endl;
+    cout << sizeof(TestEmptyObject) << endl;
+    cout << sizeof(TestCharObject) << endl;
+    cout << sizeof(TestIntObject) << endl;
+    cout << sizeof(TestVObject) << endl;
 
     return 0;
 }
