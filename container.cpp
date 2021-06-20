@@ -1,4 +1,5 @@
 #include "all.h"
+ #include <valgrind/valgrind.h>
 
 namespace Container
 {
@@ -144,6 +145,24 @@ void run2()
     cout << d[2 - 1] << endl;
 }
 
+class Hoge
+{
+};
+
+void run3()
+{
+    deque<int> d;
+    d.push_back(1);
+    d.push_back(2);
+    d.push_back(3);
+    d.push_back(4);
+
+    d.resize(2);
+
+    d.push_back(9);
+    for (auto i : d) cout << i << endl;
+}
+
 } // namespace Deque
 
 namespace Size
@@ -179,6 +198,8 @@ void addItem(int i)
     Item item;
     item.a = i;
     v.push_back(item);
+
+    VALGRIND_PRINTF_BACKTRACE("MYVAL");
 }
 
 void run()
@@ -241,10 +262,11 @@ void run()
 int main(int argc, char const *argv[])
 {
     // Container::Stack::run();
-    Container::Vector::run();
+    // Container::Vector::run();
     // Container::Deque::run();
     // Container::Deque::run2();
-    // Container::Size::run();
+    // Container::Deque::run3();
+    Container::Size::run();
     // Container::CopyCotainer::run();
     return 0;
 }
